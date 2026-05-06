@@ -2,7 +2,6 @@ interface PoolTypeConfig {
   customName?: string;
   url: string;
   pattern: string;
-  csvFile: string;
   maximumCapacity: number;
   totalLanes?: number;
   weekdaysOpeningHours: string;
@@ -10,6 +9,17 @@ interface PoolTypeConfig {
   collectStats: boolean;
   viewStats: boolean;
   temporarilyClosed?: string;
+  data: {
+    occupancy: {
+      raw: string;
+      overall: string;
+      weekly: string;
+    };
+    capacity?: {
+      raw: string;
+      forecast?: string;
+    };
+  };
 }
 
 export interface PoolConfig {

@@ -66,8 +66,8 @@ const useCapacityDataFetcher = (fullUrl: string | undefined): { data: CapacityRe
 
 export const usePoolData = () => {
   const { selectedPool } = usePoolSelector();
-  const { data: insideOccupancyData, error: insideOccupancyError } = useOccupancyDataFetcher(selectedPool.insidePool?.csvFile);
-  const { data: outsideOccupancyData, error: outsideOccupancyError } = useOccupancyDataFetcher(selectedPool.outsidePool?.csvFile);
+  const { data: insideOccupancyData, error: insideOccupancyError } = useOccupancyDataFetcher(selectedPool.insidePool?.data.occupancy.raw);
+  const { data: outsideOccupancyData, error: outsideOccupancyError } = useOccupancyDataFetcher(selectedPool.outsidePool?.data.occupancy.raw);
   const { data: capacityData, error: capacityError } = useCapacityDataFetcher(import.meta.env.VITE_MAX_CAPACITY_CSV_URL);
   const { data: weekCapacityData, error: weekCapacityError } = useCapacityDataFetcher(import.meta.env.VITE_WEEK_CAPACITY_CSV_URL);
 

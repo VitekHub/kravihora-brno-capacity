@@ -13,11 +13,11 @@ export const usePrefetchPoolsData = (allPools: PoolConfig[] | undefined): void =
     }
     allPools.forEach(pool => {
       if (pool.insidePool) {
-        const csvUrl = new URL(pool.insidePool.csvFile, baseUrl).href;
+        const csvUrl = new URL(pool.insidePool.data.occupancy.raw, baseUrl).href;
         mutate(csvUrl, fetcher(csvUrl), false);
       }
       if (pool.outsidePool) {
-        const csvUrl = new URL(pool.outsidePool.csvFile, baseUrl).href;
+        const csvUrl = new URL(pool.outsidePool.data.occupancy.raw, baseUrl).href;
         mutate(csvUrl, fetcher(csvUrl), false);
       }
     });

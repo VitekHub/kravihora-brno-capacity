@@ -22,8 +22,8 @@ const PoolOccupancyTable: React.FC = () => {
     return <div className="text-red-500">{t('common:error', { message: error.message })}</div>;
   }
 
-  const insidePoolCsvUrl = selectedPool.insidePool ? new URL(selectedPool.insidePool.csvFile, import.meta.env.VITE_BASE_OCCUPANCY_CSV_URL).href : null;
-  const outsidePoolCsvUrl = selectedPool.outsidePool ? new URL(selectedPool.outsidePool.csvFile, import.meta.env.VITE_BASE_OCCUPANCY_CSV_URL).href : null;
+  const insidePoolCsvUrl = selectedPool.insidePool ? new URL(selectedPool.insidePool.data.occupancy.raw, import.meta.env.VITE_BASE_OCCUPANCY_CSV_URL).href : null;
+  const outsidePoolCsvUrl = selectedPool.outsidePool ? new URL(selectedPool.outsidePool.data.occupancy.raw, import.meta.env.VITE_BASE_OCCUPANCY_CSV_URL).href : null;
 
   // Filter data for the selected day
   const filteredData = hourlySummary.filter(item =>

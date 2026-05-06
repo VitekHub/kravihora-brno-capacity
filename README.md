@@ -106,25 +106,45 @@ The application loads pool configurations from a JSON file specified in `VITE_PO
       "customName": "Indoor Pool",
       "url": "https://pool-website.com",
       "pattern": "data-pattern",
-      "csvFile": "indoor_occupancy.csv",
       "maximumCapacity": 50,
       "totalLanes": 6,
       "weekdaysOpeningHours": "6:00-21:00",
       "weekendOpeningHours": "8:00-20:00",
       "collectStats": true,
       "viewStats": true,
-      "temporarilyClosed": "1.1.2024 - 15.1.2024"
+      "temporarilyClosed": "1.1.2024 - 15.1.2024",
+      "data": {
+        "occupancy": {
+          "raw": "output_filename.csv",
+          "overall": "overall/output_filename.json",
+          "weekly": "weekly/output_filename.json"
+        },
+        "capacity": {
+          "raw": "capacity.csv",
+          "forecast": "week_capacity.csv"
+        }
+      }
     },
     "outsidePool": {
       "customName": "Outdoor Pool",
       "url": "https://pool-website.com",
       "pattern": "data-pattern",
-      "csvFile": "outdoor_occupancy.csv",
       "maximumCapacity": 100,
       "weekdaysOpeningHours": "6:00-21:00",
       "weekendOpeningHours": "8:00-20:00",
       "collectStats": true,
-      "viewStats": true
+      "viewStats": true,
+      "data": {
+        "occupancy": {
+          "raw": "output_filename.csv",
+          "overall": "overall/output_filename.json",
+          "weekly": "weekly/output_filename.json"
+        },
+        "capacity": {
+          "raw": "capacity.csv",
+          "forecast": "week_capacity.csv"
+        }
+      }
     }
   }
 ]
