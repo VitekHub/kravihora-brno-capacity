@@ -1,13 +1,10 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import useSWR from 'swr';
 import { PoolType, POOL_TYPES } from '@/utils/types/poolTypes';
 import { PoolConfig } from '@/utils/types/poolConfig';
 import { usePrefetchPoolsData } from '@/utils/hooks/usePrefetchPoolsData';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { DEFAULT_HEATMAP_HIGH_THRESHOLD } from '@/constants/pool';
-
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+import poolOccupancyConfig from '../../pool_occupancy_config.json';
 
 interface PoolSelectorContextType {
   selectedPoolType: PoolType;
@@ -37,14 +34,7 @@ export const PoolSelectorProvider: React.FC<{ children: React.ReactNode }> = ({ 
   const [heatmapHighThreshold, setHeatmapHighThreshold] = useState<number>(DEFAULT_HEATMAP_HIGH_THRESHOLD);
   const [uniformHeatmapBarHeight, setUniformHeatmapBarHeight] = useState<boolean>(false);
 
-  const { data: poolConfig, error } = useSWR<PoolConfig[]>(
-    import.meta.env.VITE_POOL_OCCUPANCY_CONFIG_URL,
-    fetcher,
-    {
-      revalidateOnMount: true,
-      revalidateOnFocus: false
-    }
-  );
+  const poolConfig = poolOccupancyConfig as PoolConfig[];
   usePrefetchPoolsData(poolConfig);
 
   useEffect(() => {
@@ -52,13 +42,9 @@ export const PoolSelectorProvider: React.FC<{ children: React.ReactNode }> = ({ 
       setSelectedPool(poolConfig[0]);
       setSelectedPoolType(poolConfig[0].insidePool?.viewStats ? POOL_TYPES.INSIDE : POOL_TYPES.OUTSIDE);
     }
-  }, [poolConfig]);
+  }, []);
 
-  if (error) return <div>Failed to load pool configuration</div>;
-  if (!poolConfig) {
-    return <LoadingSpinner />;
-  } else {
-    return (
+  return (
       <PoolSelectorContext.Provider value={{ 
         selectedPoolType, 
         setSelectedPoolType,
@@ -72,6 +58,5 @@ export const PoolSelectorProvider: React.FC<{ children: React.ReactNode }> = ({ 
       }}>
         {children}
       </PoolSelectorContext.Provider>
-    );
-  }
+  );
 };
